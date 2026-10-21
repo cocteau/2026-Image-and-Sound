@@ -3,13 +3,15 @@
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "postCreateCommand": "pip install -r requirements.txt && pip install -e .",
   "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "A Claude API key (instructor setup). Leave blank if you were given a course key below."
+    },
     "OPENROUTER_API_KEY": {
-      "description": "Your personal course key (from your instructor). Paste it once; it stays private to your codespace."
+      "description": "Your personal course key from your instructor. Leave blank if you entered a Claude API key above."
     }
   },
   "containerEnv": {
-    "ASK_BASE_URL": "https://openrouter.ai/api/v1",
-    "ASK_MODEL": "deepseek/deepseek-chat"
+    "ASK_BASE_URL": "https://openrouter.ai/api/v1"
   },
   "customizations": {
     "codespaces": {

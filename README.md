@@ -2,8 +2,8 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cocteau/2026-Image-and-Sound)
 
-Click the button. The first time, GitHub asks for your course key
-(`OPENROUTER_API_KEY`) — paste the one your instructor gave you.
+Click the button. The first time, GitHub asks for a key. Paste the course key
+your instructor gave you into `OPENROUTER_API_KEY` and leave the other blank.
 
 **Make it open as a notebook:** go to github.com/settings/codespaces and set
 *Editor preference* to **JupyterLab**. You only do this once.

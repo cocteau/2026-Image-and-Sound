@@ -91,16 +91,46 @@ def _parse_json(text: str) -> dict:
         raise
 
 
-def _client():
+DEFAULT_MODELS = {"anthropic": "claude-sonnet-5-5", "openrouter": "deepseek/deepseek-chat"}
+
+
+def _provider() -> str:
+    """Which service to call: a Claude API key wins, otherwise OpenRouter."""
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return "anthropic"
+    if os.environ.get("OPENROUTER_API_KEY") or os.environ.get("ASK_API_KEY"):
+        return "openrouter"
+    raise RuntimeError(
+        "No key found. Add ANTHROPIC_API_KEY (a Claude API key) or OPENROUTER_API_KEY "
+        "as a Codespaces secret for this repo, then restart the codespace."
+    )
+
+
+def _complete(system: str, user: str, model: str | None = None) -> tuple[str, str]:
+    """Send one request; return (reply text, model used)."""
+    provider = _provider()
+    model = model or os.environ.get("ASK_MODEL") or DEFAULT_MODELS[provider]
+    if provider == "anthropic":
+        import anthropic
+
+        msg = anthropic.Anthropic().messages.create(
+            model=model,
+            max_tokens=2000,
+            system=system,
+            messages=[{"role": "user", "content": user}],
+        )
+        return "".join(b.text for b in msg.content if b.type == "text"), model
+
     from openai import OpenAI
 
     key = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("ASK_API_KEY")
-    if not key:
-        raise RuntimeError(
-            "No course key found. In Codespaces, add OPENROUTER_API_KEY as a "
-            "Codespaces secret for this repo, then rebuild or restart the codespace."
-        )
-    return OpenAI(base_url=os.environ.get("ASK_BASE_URL", "https://openrouter.ai/api/v1"), api_key=key)
+    client = OpenAI(base_url=os.environ.get("ASK_BASE_URL", "https://openrouter.ai/api/v1"), api_key=key)
+    resp = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+        temperature=0.2,
+    )
+    return resp.choices[0].message.content, model
 
 
 def build_cell(question: str, reply: dict) -> str:
@@ -117,21 +147,13 @@ def build_cell(question: str, reply: dict) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def ask(question: str, ns: dict | None = None, *, model: str | None = None, client=None) -> dict:
+def ask(question: str, ns: dict | None = None, *, model: str | None = None) -> dict:
     """Ask the course model. Returns the parsed reply (and logs it)."""
     root = _repo_root()
     skills = _load_skills(root)
     system = BASE_RULES + "".join(f"\n\n--- skill: {n} ---\n{t}" for n, t in skills)
     user = f"Tables in the notebook:\n{_describe_namespace(ns or {})}\n\nQuestion: {question}"
-    model = model or os.environ.get("ASK_MODEL", "deepseek/deepseek-chat")
-    client = client or _client()
-
-    resp = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-        temperature=0.2,
-    )
-    raw = resp.choices[0].message.content
+    raw, model = _complete(system, user, model)
     reply = _parse_json(raw)
 
     with open(root / "ask_log.jsonl", "a", encoding="utf-8") as f:

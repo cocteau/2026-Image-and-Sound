@@ -4,3 +4,4 @@ matplotlib
 requests
 openai>=1.0
 pytest
+anthropic
