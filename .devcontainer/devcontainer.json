@@ -1,6 +1,6 @@
 {
   "name": "Data course",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "postCreateCommand": "pip install -r requirements.txt && pip install -e .",
   "secrets": {
     "ANTHROPIC_API_KEY": {
