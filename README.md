@@ -1,6 +1,6 @@
 # Data
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/OWNER/REPO)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cocteau/2026-Image-and-Sound)
 
 Click the button. The first time, GitHub asks for your course key
 (`OPENROUTER_API_KEY`) — paste the one your instructor gave you.
