@@ -1,7 +1,7 @@
 {
   "name": "Data course",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": "pip install -r requirements.txt && pip install -e .",
+  "onCreateCommand": "pip install -r requirements.txt && pip install -e .",
   "secrets": {
     "ANTHROPIC_API_KEY": {
       "description": "A Claude API key (instructor setup). Leave blank if you were given a course key below."

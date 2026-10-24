@@ -2,11 +2,34 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cocteau/2026-Image-and-Sound)
 
-Click the button. The first time, GitHub asks for a key. Paste the course key
-your instructor gave you into `OPENROUTER_API_KEY` and leave the other blank.
+## Getting started
 
-**Make it open as a notebook:** go to github.com/settings/codespaces and set
-*Editor preference* to **JupyterLab**. You only do this once.
+1. **First, make it open in JupyterLab.** Go to
+   [github.com/settings/codespaces](https://github.com/settings/codespaces)
+   and set *Editor preference* to **JupyterLab**. Do this *before* step 2.
+   You only do it once.
+2. **Click the button above.** GitHub asks for a key. Paste the course key
+   your instructor gave you into `OPENROUTER_API_KEY` and leave
+   `ANTHROPIC_API_KEY` blank. Then click **Create codespace**.
+3. **Wait for it to finish setting up** (a few minutes the first time). When
+   JupyterLab appears, open `notebooks/` in the file browser on the left.
+
+To come back later, go to [github.com/codespaces](https://github.com/codespaces)
+and click your codespace. Don't click the button again, which would make a
+second one.
+
+### If something goes wrong
+
+- **It opened in VS Code instead of JupyterLab.** Go to
+  [github.com/codespaces](https://github.com/codespaces), click **…** next to
+  your codespace, and choose **Open in → JupyterLab**. Then do step 1 so it
+  sticks.
+- **You skipped the key, or `%ask` says no key is set.** Add it at
+  [github.com/settings/codespaces](https://github.com/settings/codespaces)
+  under *Codespaces secrets*: name `OPENROUTER_API_KEY`, your key as the
+  value, and this repository selected. Then **restart the codespace**
+  (**…** → *Stop codespace*, then open it again). Keys are only read at
+  startup.
 
 ## What's in here
 
