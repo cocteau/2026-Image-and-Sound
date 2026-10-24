@@ -2,6 +2,14 @@
   "name": "Data course",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "onCreateCommand": "pip install -r requirements.txt && pip install -e .",
+  "postStartCommand": "nohup jupyter lab --no-browser --ip=0.0.0.0 --port=8888 --ServerApp.token='' --ServerApp.password='' --ServerApp.allow_origin='*' --ServerApp.root_dir=${containerWorkspaceFolder} > /tmp/jupyterlab.log 2>&1 &",
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": {
+      "label": "JupyterLab",
+      "onAutoForward": "openBrowser"
+    }
+  },
   "secrets": {
     "ANTHROPIC_API_KEY": {
       "description": "A Claude API key (instructor setup). Leave blank if you were given a course key below."
@@ -14,9 +22,6 @@
     "ASK_BASE_URL": "https://openrouter.ai/api/v1"
   },
   "customizations": {
-    "codespaces": {
-      "openFiles": ["notebooks/01-is-this-number-right.ipynb"]
-    },
     "vscode": {
       "extensions": ["ms-toolsai.jupyter", "ms-python.python"],
       "settings": {

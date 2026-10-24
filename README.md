@@ -4,26 +4,26 @@
 
 ## Getting started
 
-1. **First, make it open in JupyterLab.** Go to
-   [github.com/settings/codespaces](https://github.com/settings/codespaces)
-   and set *Editor preference* to **JupyterLab**. Do this *before* step 2.
-   You only do it once.
-2. **Click the button above.** GitHub asks for a key. Paste the course key
+1. **Click the button above.** GitHub asks for a key. Paste the course key
    your instructor gave you into `OPENROUTER_API_KEY` and leave
    `ANTHROPIC_API_KEY` blank. Then click **Create codespace**.
-3. **Wait for it to finish setting up** (a few minutes the first time). When
-   JupyterLab appears, open `notebooks/` in the file browser on the left.
+2. **Wait for it to finish setting up** (a few minutes the first time). A
+   code editor opens first. That's expected; you won't work in it.
+3. **JupyterLab opens in a new browser tab by itself.** Work there. Open
+   `notebooks/` in the file browser on the left.
 
 To come back later, go to [github.com/codespaces](https://github.com/codespaces)
 and click your codespace. Don't click the button again, which would make a
-second one.
+second one. JupyterLab opens in a new tab again each time.
 
 ### If something goes wrong
 
-- **It opened in VS Code instead of JupyterLab.** Go to
-  [github.com/codespaces](https://github.com/codespaces), click **…** next to
-  your codespace, and choose **Open in → JupyterLab**. Then do step 1 so it
-  sticks.
+- **No JupyterLab tab appeared.** Your browser may have blocked the pop-up.
+  In the code editor, click the **Ports** tab at the bottom, find
+  **JupyterLab (8888)**, and click the globe icon next to it.
+- **Leave GitHub's editor setting on Visual Studio Code.** Don't choose
+  JupyterLab at github.com/settings/codespaces; that option doesn't work with
+  this course setup.
 - **You skipped the key, or `%ask` says no key is set.** Add it at
   [github.com/settings/codespaces](https://github.com/settings/codespaces)
   under *Codespaces secrets*: name `OPENROUTER_API_KEY`, your key as the
