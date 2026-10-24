@@ -2,10 +2,10 @@
   "name": "Data course",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "onCreateCommand": "pip install -r requirements.txt && pip install -e .",
-  "postStartCommand": "nohup jupyter lab --no-browser --ip=0.0.0.0 --port=8888 --ServerApp.token='' --ServerApp.password='' --ServerApp.allow_origin='*' --ServerApp.root_dir=${containerWorkspaceFolder} > /tmp/jupyterlab.log 2>&1 &",
-  "forwardPorts": [8888],
+  "postStartCommand": "nohup jupyter lab --no-browser --ip=0.0.0.0 --port=8899 --ServerApp.port_retries=0 --ServerApp.token='' --ServerApp.password='' --ServerApp.allow_origin='*' --ServerApp.root_dir=${containerWorkspaceFolder} > /tmp/jupyterlab.log 2>&1 &",
+  "forwardPorts": [8899],
   "portsAttributes": {
-    "8888": {
+    "8899": {
       "label": "JupyterLab",
       "onAutoForward": "openBrowser"
     }

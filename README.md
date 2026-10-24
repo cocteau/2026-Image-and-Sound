@@ -20,7 +20,7 @@ second one. JupyterLab opens in a new tab again each time.
 
 - **No JupyterLab tab appeared.** Your browser may have blocked the pop-up.
   In the code editor, click the **Ports** tab at the bottom, find
-  **JupyterLab (8888)**, and click the globe icon next to it.
+  **JupyterLab (8899)**, and click the globe icon next to it.
 - **Leave GitHub's editor setting on Visual Studio Code.** Don't choose
   JupyterLab at github.com/settings/codespaces; that option doesn't work with
   this course setup.
