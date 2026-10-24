@@ -1,34 +1,5 @@
 {
-  "name": "Data course",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "onCreateCommand": "pip install -r requirements.txt && pip install -e .",
-  "postStartCommand": "nohup jupyter lab --no-browser --ip=0.0.0.0 --port=8899 --ServerApp.port_retries=0 --ServerApp.token='' --ServerApp.password='' --ServerApp.allow_origin='*' --ServerApp.root_dir=${containerWorkspaceFolder} > /tmp/jupyterlab.log 2>&1 &",
-  "forwardPorts": [8899],
-  "portsAttributes": {
-    "8899": {
-      "label": "JupyterLab",
-      "onAutoForward": "openBrowser"
-    }
-  },
-  "secrets": {
-    "ANTHROPIC_API_KEY": {
-      "description": "A Claude API key (instructor setup). Leave blank if you were given a course key below."
-    },
-    "OPENROUTER_API_KEY": {
-      "description": "Your personal course key from your instructor. Leave blank if you entered a Claude API key above."
-    }
-  },
-  "containerEnv": {
-    "ASK_BASE_URL": "https://openrouter.ai/api/v1"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": ["ms-toolsai.jupyter", "ms-python.python"],
-      "settings": {
-        "workbench.startupEditor": "none",
-        "editor.minimap.enabled": false,
-        "workbench.tips.enabled": false
-      }
-    }
-  }
+  "name": "Image and Sound",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "onCreateCommand": "pip install -r requirements.txt"
 }
