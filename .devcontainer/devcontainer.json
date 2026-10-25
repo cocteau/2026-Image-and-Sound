@@ -28,6 +28,9 @@
         // Use this machine's Python for notebooks, so no kernel picker.
         "python.defaultInterpreterPath": "/usr/local/bin/python",
 
+        // Always open .ipynb files as notebooks, never as raw text.
+        "workbench.editorAssociations": { "*.ipynb": "jupyter-notebook" },
+
         // Hide distractions.
         "workbench.startupEditor": "none",
         "workbench.tips.enabled": false,
