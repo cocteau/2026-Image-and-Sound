@@ -1,0 +1,44 @@
+{
+  // The machine each student gets: Python 3.12, nothing else preinstalled.
+  "name": "EDA course",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+
+  // Install the Python packages before the editor opens.
+  "onCreateCommand": "pip install -r requirements.txt",
+
+  // GitHub asks each student for this key the first time they create a codespace.
+  "secrets": {
+    "ANTHROPIC_API_KEY": {
+      "description": "The Claude key your instructor gave you."
+    }
+  },
+
+  "customizations": {
+    "codespaces": {
+      // Open the first notebook as soon as the codespace is ready.
+      "openFiles": ["notebooks/01-first-look.ipynb"]
+    },
+    "vscode": {
+      "extensions": [
+        "ms-toolsai.jupyter",
+        "ms-python.python",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        // Use this machine's Python for notebooks, so no kernel picker.
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+
+        // Hide distractions.
+        "workbench.startupEditor": "none",
+        "workbench.tips.enabled": false,
+        "editor.minimap.enabled": false,
+        "breadcrumbs.enabled": false,
+        "workbench.editor.enablePreview": false,
+        "notebook.output.scrolling": true,
+
+        // Hide GitHub Copilot's chat so Claude is the only assistant on screen.
+        "chat.disableAIFeatures": true
+      }
+    }
+  }
+}
