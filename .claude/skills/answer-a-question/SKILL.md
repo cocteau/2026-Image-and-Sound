@@ -5,7 +5,14 @@ description: Use when the student asks a question about the data (how many, whic
 
 # Answer a question about the data
 
-Add these cells to the end of the student's open notebook, in order.
+**Skip these steps when the student asks for something quick.** If they say
+"just", "quick", "only", "skip the steps", or simply ask for a plot or a
+table without asking a question, do only that: one short markdown line
+saying what the cell shows, then the code. No Question, Plan, Check or Claim
+cells. Go back to the full steps the next time they ask a real question
+about the data.
+
+Otherwise, add these cells to the end of the student's open notebook, in order.
 
 1. **Markdown: Question.** Restate the question precisely. Name the columns
    you will use and define any vague word ("most", "average", "recent").
@@ -20,8 +27,9 @@ Add these cells to the end of the student's open notebook, in order.
    the answer: compute the same number a second, independent way, confirm the
    parts add up to the whole, or look at the raw rows behind the result.
    Re-running the same code is not a check.
-5. **Markdown: Claim.** A cell with only `**Claim:** ` for the student to
-   complete. Do not fill it in.
+5. **Markdown: Claim.** A cell containing exactly
+   `**Claim:** *(Your turn: one sentence on what you conclude, with the numbers that support it.)*`
+   for the student to complete. Do not fill it in.
 
 Then tell the student, in the chat:
 
