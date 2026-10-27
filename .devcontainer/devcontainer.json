@@ -1,16 +1,44 @@
 {
-  // The machine each student gets: Python 3.12, nothing else preinstalled.
+  // The machine each student gets: Python 3.12, plus Node for Claude.
   "name": "EDA course",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
 
-  // Install the Python packages before the editor opens.
-  "onCreateCommand": "pip install -r requirements.txt",
+  // Install everything once, when the codespace is first built:
+  // Python packages (JupyterLab, Jupyter AI) and Claude with its
+  // connector to Jupyter AI.
+  "onCreateCommand": "pip install -r requirements.txt && npm install -g @anthropic-ai/claude-code @agentclientprotocol/claude-agent-acp@0.97.0",
+
+  // Terminals get the OpenRouter settings too.
+  "postCreateCommand": "echo 'source ${containerWorkspaceFolder}/.devcontainer/claude-env.sh' >> ~/.bashrc",
+
+  // Start JupyterLab every time the codespace starts.
+  "postStartCommand": "bash .devcontainer/start-jupyter.sh",
+
+  // Open JupyterLab in its own tab; don't announce other ports.
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" }
+  },
+  "otherPortsAttributes": { "onAutoForward": "silent" },
 
   // GitHub asks each student for this key the first time they create a codespace.
   "secrets": {
-    "ANTHROPIC_API_KEY": {
-      "description": "The Claude key your instructor gave you."
+    "OPENROUTER_API_KEY": {
+      "description": "The OpenRouter key your instructor gave you (starts with sk-or-)."
     }
+  },
+
+  // The same OpenRouter settings for the Claude panel in VS Code (the backup editor).
+  "remoteEnv": {
+    "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
+    "ANTHROPIC_AUTH_TOKEN": "${containerEnv:OPENROUTER_API_KEY}",
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_MODEL": "~anthropic/claude-sonnet-latest",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "~anthropic/claude-haiku-latest",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
 
   "customizations": {

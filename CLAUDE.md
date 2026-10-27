@@ -47,6 +47,21 @@ and the claims notebook, and `make-a-chart` whenever a step involves a chart.
 - **Plain language.** The student is a journalist, not a programmer. Explain
   code in words they can follow, and avoid jargon or define it.
 
+## Working in JupyterLab
+
+When the Jupyter notebook tools are available (`add_cell`, `edit_cell`,
+`read_notebook_cells`, `run_cell` and the rest), they are the only way you
+touch notebooks: they put cells into the notebook the student has open, where
+they can watch. Never write `.ipynb` files any other way.
+
+- **Don't run cells unless the student asks.** By default, add the cells and
+  tell the student to run them.
+- **Read before you report.** Never state a number or finding until you have
+  read it from the cell's actual output with `read_notebook_cells`. If a cell
+  hasn't run yet, say so; never guess what it would print.
+- **Point to the evidence.** When you describe a result, say which cell
+  shows it.
+
 ## What counts as a check
 
 A check must be able to disagree with the answer. Good checks:

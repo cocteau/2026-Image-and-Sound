@@ -1,3 +1,8 @@
 ipykernel
 pandas
 matplotlib
+# JupyterLab with the Jupyter AI chat panel and its Claude connector.
+# Pinned to the versions tested together for this course.
+jupyterlab==4.6.4
+jupyter-ai==3.2.0
+jupyter-ai-acp-client==0.3.3

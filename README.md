@@ -4,13 +4,17 @@
 
 ## Getting started
 
-1. **Click the button above.** GitHub asks for a key: paste the Claude key
-   your instructor gave you into `ANTHROPIC_API_KEY`. Click **Create
-   codespace**.
-2. **Wait** a few minutes the first time while it sets up.
-3. The notebook **01-first-look** opens. Read it from the top.
-4. **Open Claude** by clicking the Claude icon in the sidebar. The first
-   time, it may ask how to sign in; choose the API key option.
+1. **Click the button above.** GitHub asks for a key: paste the key your
+   instructor gave you (it starts with `sk-or-`) into `OPENROUTER_API_KEY`.
+   Click **Create codespace**.
+2. **Wait** a few minutes the first time while it sets up. A code editor
+   opens first. **Ignore it.** When setup finishes, **JupyterLab** opens in
+   a second browser tab. That's where you work.
+3. In JupyterLab, open `notebooks/01-first-look.ipynb` and read it from the
+   top.
+4. **Open Claude:** click the chat icon (two speech bubbles) in the left
+   sidebar, then **New chat**. Claude is already selected; type your question.
+   Claude asks your permission (**Yes**) before it changes your notebook.
 
 To come back later, go to [github.com/codespaces](https://github.com/codespaces)
 and click your codespace. Don't click the button again, which makes a second
@@ -53,12 +57,15 @@ cell. Run All at any time to re-check every claim you've made.
 
 ## If something goes wrong
 
-- **Claude asks you to sign in or log in.** Your key didn't reach it. Go to
+- **The JupyterLab tab never opened** (your browser may have blocked it). In
+  the code editor, click the **Ports** tab at the bottom, then the globe icon
+  next to **JupyterLab (8888)**.
+- **Claude says you're not authenticated, or doesn't answer.** Your key
+  didn't reach it. Go to
   [github.com/settings/codespaces](https://github.com/settings/codespaces),
-  add a secret named `ANTHROPIC_API_KEY` with your key, select this
-  repository, then stop and restart your codespace.
-- **Running a cell asks you to pick a kernel.** Choose **Python 3.12**
-  (`/usr/local/bin/python`).
+  add a secret named `OPENROUTER_API_KEY` with your key (starts with
+  `sk-or-`), select this repository, then stop and restart your codespace.
+- **Running a cell asks you to pick a kernel.** Choose **Python 3**.
 
 ---
 
@@ -68,12 +75,20 @@ cell. Run All at any time to re-check every claim you've made.
 
 1. If you copy this to another repository, change the badge link above to
    point to it.
-2. In the [Claude Console](https://console.anthropic.com), create a workspace
-   for the course, set a monthly spend limit on it, and create one API key
-   per student in that workspace. Per-student keys let you see usage and
-   revoke one key without affecting the others.
+2. In [OpenRouter](https://openrouter.ai/settings/keys), add credit and
+   create one API key per student, each with its own spending limit.
+   Per-student keys let you see each student's usage and revoke one key
+   without affecting the others. In each key's settings, consider allowing
+   only the Anthropic provider.
 3. Make one codespace yourself and run through `01-first-look`, including
    asking Claude one question and asking it to review a claim.
+
+**How it's wired:** JupyterLab starts automatically
+(`.devcontainer/start-jupyter.sh`, log in `/tmp/jupyterlab.log`). Its chat
+panel is Jupyter AI, which runs Claude Code behind the scenes and gives it
+tools that edit and run cells in the open notebook. Claude's requests go
+through OpenRouter (`.devcontainer/claude-env.sh`, which also sets the
+model). The VS Code tab still works as a backup, with its own Claude panel.
 
 **Extending it:**
 
