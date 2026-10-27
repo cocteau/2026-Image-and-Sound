@@ -21,14 +21,15 @@ the student's open notebook:
 Claims that survive review go into `notebooks/claims.ipynb`, each with a check
 cell that recomputes every number in the claim from the raw data.
 
-Use the `answer-a-question` skill for steps 1–4, `review-my-claim` for step 6
-and the claims notebook, and `make-a-chart` whenever a step involves a chart.
+Follow the "Answer a question" instructions (below the rules) for steps 1–4,
+"Review the student's claim" for step 6 and the claims notebook, and "Make a
+chart" whenever a step involves a chart.
 
 ## Rules
 
 - **Work in the notebook, never the terminal.** Put all analysis code in
-  notebook cells. Do not run Python, pandas, or scripts with Bash to get
-  answers. The student runs every cell, after reading it.
+  notebook cells. Never use the `bash` tool to run Python, pandas, or scripts
+  to get answers. The student runs every cell, after reading it.
 - **One idea per cell.** Keep each code cell short. Put a markdown cell above
   each code cell saying, in one sentence, exactly what the code computes,
   including every filter and definition (e.g. "the mean body mass in grams of
@@ -49,10 +50,11 @@ and the claims notebook, and `make-a-chart` whenever a step involves a chart.
 
 ## Working in JupyterLab
 
-When the Jupyter notebook tools are available (`add_cell`, `edit_cell`,
-`read_notebook_cells`, `run_cell` and the rest), they are the only way you
-touch notebooks: they put cells into the notebook the student has open, where
-they can watch. Never write `.ipynb` files any other way.
+The notebook tools (`add_cell`, `edit_cell`, `read_notebook_cells`,
+`run_cell` and the rest) are the only way you touch notebooks: they put cells
+into the notebook the student has open, where they can watch. Never write
+`.ipynb` files any other way. Unless the student names another notebook, work
+in the one they have open (`get_active_notebook`).
 
 - **Don't run cells unless the student asks.** By default, add the cells and
   tell the student to run them.

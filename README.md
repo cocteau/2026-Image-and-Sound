@@ -8,8 +8,9 @@
    instructor gave you (it starts with `sk-or-`) into `OPENROUTER_API_KEY`.
    Click **Create codespace**.
 2. **Wait** a few minutes the first time while it sets up. A code editor
-   opens first. **Ignore it.** When setup finishes, **JupyterLab** opens in
-   a second browser tab. That's where you work.
+   opens first, showing this page. **Ignore the editor.** When setup
+   finishes, **JupyterLab** opens in a second browser tab. That's where you
+   work. (No second tab? See "If something goes wrong" below.)
 3. In JupyterLab, open `notebooks/01-first-look.ipynb` and read it from the
    top.
 4. **Open Claude:** click the chat icon (two speech bubbles) in the left
@@ -52,16 +53,17 @@ cell. Run All at any time to re-check every claim you've made.
 | `notebooks/` | Your analyses. `template.ipynb` is a blank starting point. |
 | `notebooks/claims.ipynb` | Every claim you make, with code that checks it. |
 | `data/` | Data files. Don't edit them; clean data in a notebook instead. |
-| `CLAUDE.md` | The rules Claude follows in this course. |
-| `.claude/skills/` | Step-by-step instructions Claude uses for answering questions, reviewing claims, and making charts. |
+| `assistant/rules.md` | The rules Claude follows in this course. |
+| `assistant/skills/` | Step-by-step instructions Claude uses for answering questions, reviewing claims, and making charts. |
 
 ## If something goes wrong
 
 - **The JupyterLab tab never opened** (your browser may have blocked it). In
   the code editor, click the **Ports** tab at the bottom, then the globe icon
   next to **JupyterLab (8888)**.
-- **Claude says you're not authenticated, or doesn't answer.** Your key
-  didn't reach it. Go to
+- **Claude answers with an error, or not at all.** Your key probably didn't
+  reach it. In the code editor's **Terminal**, the startup messages say
+  whether the key works. To add or fix it, go to
   [github.com/settings/codespaces](https://github.com/settings/codespaces),
   add a secret named `OPENROUTER_API_KEY` with your key (starts with
   `sk-or-`), select this repository, then stop and restart your codespace.
@@ -84,21 +86,21 @@ cell. Run All at any time to re-check every claim you've made.
    asking Claude one question and asking it to review a claim.
 
 **How it's wired:** JupyterLab starts automatically
-(`.devcontainer/start-jupyter.sh`, log in `/tmp/jupyterlab.log`). Its chat
-panel is Jupyter AI, which runs Claude Code behind the scenes and gives it
-tools that edit and run cells in the open notebook. Claude's requests go
-through OpenRouter (`.devcontainer/claude-env.sh`, which also sets the
-model). The VS Code tab still works as a backup, with its own Claude panel.
+(`.devcontainer/start-jupyter.sh`, log in `/tmp/jupyterlab.log`), and checks
+the student's OpenRouter key on the way. Its chat is Jupyter AI. "Claude" in
+the chat is Jupyter AI's built-in agent with this course's rules added
+(`.jupyter/personas/course_persona.py`); it edits and runs cells in the open
+notebook through Jupyter AI's notebook tools. The model is the latest Claude
+Sonnet, reached through OpenRouter (set in `start-jupyter.sh`).
 
 **Extending it:**
 
 - **New datasets:** add files to `data/` and a notebook that loads them.
-- **Change how Claude behaves:** edit `CLAUDE.md` (rules for everything) or
-  a skill in `.claude/skills/` (one task). Changes apply the next time a
-  student starts a Claude conversation. Students can write their own skills
-  too.
-- **New skill:** add `.claude/skills/<name>/SKILL.md` with a `name` and a
-  `description` saying when Claude should use it.
+- **Change how Claude behaves:** edit `assistant/rules.md` (rules for
+  everything) or a file in `assistant/skills/` (one task). Changes apply to
+  the next message.
+- **New skill:** add a Markdown file to `assistant/skills/`, starting with a
+  heading and a line saying when Claude should use it.
 - **More Python packages:** add them to `requirements.txt`. Existing
   codespaces need a rebuild (Command Palette → *Codespaces: Rebuild
   Container*).

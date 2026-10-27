@@ -1,23 +1,40 @@
 #!/bin/bash
-# Starts JupyterLab when the codespace starts (and again whenever the editor
-# reconnects, if it isn't running). It opens in its own browser tab
-# (port 8888). If it doesn't appear, read /tmp/jupyterlab.log.
+# Starts JupyterLab when the codespace starts (and checks again whenever the
+# editor reconnects). It opens in its own browser tab (port 8888).
+# If it doesn't appear, read /tmp/jupyterlab.log.
 
 cd "$(dirname "$0")/.." || exit 1
-source .devcontainer/claude-env.sh
 export PATH="$HOME/.local/bin:$PATH"
 
-up() { curl -s -o /dev/null http://127.0.0.1:8888/api; }
+# The model the chat uses: the latest Claude Sonnet, through OpenRouter.
+# OpenRouter reads the key from OPENROUTER_API_KEY (the Codespaces secret).
+MODEL="openrouter/~anthropic/claude-sonnet-latest"
 
-# If this script is already running, wait (at most 5 minutes) for it to
-# finish first.
+up() { curl -s -o /dev/null http://127.0.0.1:8888/api; }
+running() { pgrep -f "^python3 -m jupyterlab" > /dev/null; }
+
+# If this script is already running, wait (at most 5 minutes) for it.
 exec 9> /tmp/jupyterlab.lock
 flock -w 300 9
 
-running() { pgrep -f "^python3 -m jupyterlab" > /dev/null; }
-
 # Already answering? Nothing to do.
 if up; then exit 0; fi
+
+# Check the OpenRouter key, so a bad key shows up here, not as a confusing
+# error in the chat.
+if [ -z "$OPENROUTER_API_KEY" ]; then
+  echo "WARNING: no OPENROUTER_API_KEY secret. The chat won't work until you add it."
+else
+  reply=$(curl -s -m 15 https://openrouter.ai/api/v1/key \
+            -H "Authorization: Bearer $OPENROUTER_API_KEY")
+  if echo "$reply" | grep -q '"data"'; then
+    echo "OpenRouter key works."
+  elif [ -z "$reply" ]; then
+    echo "WARNING: couldn't reach OpenRouter to check the key."
+  else
+    echo "WARNING: OpenRouter rejected the OPENROUTER_API_KEY secret: $reply"
+  fi
+fi
 
 # Start it only if it isn't already running. (On a brand-new codespace it
 # can take a few minutes to answer; don't start a second copy meanwhile.)
@@ -25,11 +42,13 @@ if ! running; then
   echo "$(date) starting JupyterLab" >> /tmp/jupyterlab.log
   # The port is private to the codespace's owner, so no Jupyter password.
   nohup setsid python3 -m jupyterlab \
-  --no-browser --ip=0.0.0.0 --port=8888 --ServerApp.port_retries=0 \
-  --ServerApp.token='' --ServerApp.password='' \
-  --ServerApp.allow_origin='*' \
-  --ServerApp.root_dir="$PWD" \
-  >> /tmp/jupyterlab.log 2>&1 < /dev/null 9>&- &
+    --no-browser --ip=0.0.0.0 --port=8888 --ServerApp.port_retries=0 \
+    --ServerApp.token='' --ServerApp.password='' \
+    --ServerApp.allow_origin='*' \
+    --ServerApp.root_dir="$PWD" \
+    --JupyternautExtension.initial_language_model="$MODEL" \
+    --PersonaManager.default_persona_id="jupyter-ai-personas::course_persona::CourseAssistant" \
+    >> /tmp/jupyterlab.log 2>&1 < /dev/null 9>&- &
   disown
 fi
 

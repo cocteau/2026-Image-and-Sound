@@ -1,23 +1,15 @@
 {
-  // The machine each student gets: Python 3.12, plus Node for Claude.
+  // The machine each student gets: Python 3.12 with JupyterLab and
+  // Jupyter AI. Students work in JupyterLab, which opens in its own tab.
   "name": "EDA course",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
-  },
 
-  // Install everything once, when the codespace is first built:
-  // Python packages (JupyterLab, Jupyter AI) and Claude with its
-  // connector to Jupyter AI.
-  "onCreateCommand": "pip install -r requirements.txt && npm install -g @anthropic-ai/claude-code @agentclientprotocol/claude-agent-acp@0.97.0",
+  // Install the Python packages once, when the codespace is first built.
+  "onCreateCommand": "pip install -r requirements.txt",
 
-  // Terminals get the OpenRouter settings too.
-  "postCreateCommand": "echo 'source ${containerWorkspaceFolder}/.devcontainer/claude-env.sh' >> ~/.bashrc",
-
-  // Every time the codespace starts: point Claude at OpenRouter, then start
-  // JupyterLab. Check JupyterLab again whenever the editor connects
-  // (restarting it if it has stopped).
-  "postStartCommand": "bash .devcontainer/claude-settings.sh; bash .devcontainer/start-jupyter.sh",
+  // Start JupyterLab every time the codespace starts, and check again
+  // whenever the editor connects (restarting it if it has stopped).
+  "postStartCommand": "bash .devcontainer/start-jupyter.sh",
   "postAttachCommand": "bash .devcontainer/start-jupyter.sh",
 
   // Open JupyterLab in its own tab; don't announce other ports.
@@ -36,36 +28,18 @@
 
   "customizations": {
     "codespaces": {
-      // Open the first notebook as soon as the codespace is ready.
-      "openFiles": ["notebooks/01-first-look.ipynb"]
+      // The code editor opens first; show the page that points to JupyterLab.
+      "openFiles": ["README.md"]
     },
     "vscode": {
-      "extensions": [
-        "ms-toolsai.jupyter",
-        "ms-python.python",
-        "anthropic.claude-code"
-      ],
       "settings": {
-        // Use this machine's Python for notebooks, so no kernel picker.
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        // Show README as a formatted page, not raw text.
+        "workbench.editorAssociations": { "*.md": "vscode.markdown.preview.editor" },
 
-        // Always open .ipynb files as notebooks, never as raw text.
-        "workbench.editorAssociations": { "*.ipynb": "jupyter-notebook" },
-
-        // Hide distractions.
+        // Hide distractions, including GitHub Copilot.
         "workbench.startupEditor": "none",
         "workbench.tips.enabled": false,
-        "editor.minimap.enabled": false,
-        "breadcrumbs.enabled": false,
-        "workbench.editor.enablePreview": false,
-        "notebook.output.scrolling": true,
-
-        // Hide GitHub Copilot's chat so Claude is the only assistant on screen.
-        "chat.disableAIFeatures": true,
-
-        // Claude uses OpenRouter (set up by claude-settings.sh), so never
-        // show the Anthropic login screen.
-        "claudeCode.disableLoginPrompt": true
+        "chat.disableAIFeatures": true
       }
     }
   }

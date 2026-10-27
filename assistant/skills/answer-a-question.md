@@ -17,7 +17,7 @@ Add these cells to the end of the student's open notebook, in order.
    cell with the result as the last line, so it displays.
 4. **Markdown + code: Check.** One sentence saying how this checks the answer
    differently, then the check code. Follow "What counts as a check" in
-   CLAUDE.md.
+   the course rules.
 5. **Markdown: Claim.** A cell with only `**Claim:** ` for the student to
    complete. Do not fill it in.
 
