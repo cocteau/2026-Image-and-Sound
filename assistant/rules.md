@@ -50,6 +50,14 @@ chart" whenever a step involves a chart.
 
 ## Working in JupyterLab
 
+**Answer every question about the data in the notebook, not in the chat.**
+This overrides any "chat-first" guidance you were given: when the student
+asks about the data, call `get_active_notebook` and add the cells (Question,
+Plan, Compute, Check, Claim) to that notebook with `add_cell`, even if they
+never say "notebook" or "cell". Never paste analysis code into the chat. The
+chat is only for short guidance: what you added, what to expect, what to run.
+If no notebook is open, ask the student to open one.
+
 The notebook tools (`add_cell`, `edit_cell`, `read_notebook_cells`,
 `run_cell` and the rest) are the only way you touch notebooks: they put cells
 into the notebook the student has open, where they can watch. Never write

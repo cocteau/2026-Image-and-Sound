@@ -15,7 +15,9 @@ from pathlib import Path
 from jupyter_ai_jupyternaut.jupyternaut.jupyternaut import JupyternautPersona
 from jupyter_ai_persona_manager import ModelConfiguration, PersonaDefaults
 
-MODEL = "openrouter/~anthropic/claude-sonnet-latest"
+# Opus: the strongest Claude, and the most expensive. For a cheaper model,
+# use "openrouter/~anthropic/claude-sonnet-latest".
+MODEL = "openrouter/~anthropic/claude-opus-latest"
 
 ASSISTANT_DIR = Path(__file__).resolve().parents[2] / "assistant"
 

@@ -91,7 +91,7 @@ the student's OpenRouter key on the way. Its chat is Jupyter AI. "Claude" in
 the chat is Jupyter AI's built-in agent with this course's rules added
 (`.jupyter/personas/course_persona.py`); it edits and runs cells in the open
 notebook through Jupyter AI's notebook tools. The model is the latest Claude
-Sonnet, reached through OpenRouter (set in `start-jupyter.sh`).
+Opus, reached through OpenRouter (set at the top of `course_persona.py`).
 
 **Extending it:**
 
