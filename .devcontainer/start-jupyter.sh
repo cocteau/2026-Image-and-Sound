@@ -48,6 +48,7 @@ nohup setsid python3 -m jupyterlab \
   --ServerApp.token='' --ServerApp.password='' \
   --ServerApp.allow_origin='*' \
   --JupyternautExtension.initial_language_model="openrouter/$MODEL" \
+  --MCPExtensionApp.mcp_name="notebook" \
   --PersonaManager.default_persona_id="jupyter-ai-personas::jupyter_ai_jupyternaut::JupyternautPersona" \
   > /tmp/jupyterlab.log 2>&1 < /dev/null &
 disown
