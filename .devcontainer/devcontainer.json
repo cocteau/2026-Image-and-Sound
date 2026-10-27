@@ -1,7 +1,10 @@
 {
   "name": "2026 Image and Sound",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-  "onCreateCommand": "pip install -r requirements.txt",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "onCreateCommand": "pip install -r requirements.txt && npm install -g @anthropic-ai/claude-code @agentclientprotocol/claude-agent-acp",
   "postStartCommand": "bash .devcontainer/start-jupyter.sh",
   "forwardPorts": [
     8888

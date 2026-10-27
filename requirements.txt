@@ -2,9 +2,8 @@ jupyterlab
 ipykernel
 pandas
 matplotlib
-# Jupyter AI and its built-in assistant, Jupyternaut.
-jupyter-ai==3.2.0
-jupyter-ai-jupyternaut==0.1.0
+# Jupyter AI with its built-in assistant (Jupyternaut) and the %%ai magics.
+jupyter-ai[jupyternaut,magics]==3.2.0
 # Newer litellm needs mcp 2.x, which clashes with Jupyter AI's mcp 1.x and
 # breaks every chat request.
 litellm==1.102.4
