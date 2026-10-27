@@ -9,27 +9,32 @@ export PATH="$HOME/.local/bin:$PATH"
 
 up() { curl -s -o /dev/null http://127.0.0.1:8888/api; }
 
-# If this script is already running, wait (at most 90 seconds) for it to
+# If this script is already running, wait (at most 5 minutes) for it to
 # finish first.
 exec 9> /tmp/jupyterlab.lock
-flock -w 90 9
+flock -w 300 9
 
-# Already running? Nothing to do.
+running() { pgrep -f "^python3 -m jupyterlab" > /dev/null; }
+
+# Already answering? Nothing to do.
 if up; then exit 0; fi
 
-echo "$(date) starting JupyterLab" >> /tmp/jupyterlab.log
-
-# The port is private to the codespace's owner, so no Jupyter password.
-nohup setsid python3 -m jupyterlab \
-  --no-browser --ip=0.0.0.0 --port=8888 \
+# Start it only if it isn't already running. (On a brand-new codespace it
+# can take a few minutes to answer; don't start a second copy meanwhile.)
+if ! running; then
+  echo "$(date) starting JupyterLab" >> /tmp/jupyterlab.log
+  # The port is private to the codespace's owner, so no Jupyter password.
+  nohup setsid python3 -m jupyterlab \
+  --no-browser --ip=0.0.0.0 --port=8888 --ServerApp.port_retries=0 \
   --ServerApp.token='' --ServerApp.password='' \
   --ServerApp.allow_origin='*' \
   --ServerApp.root_dir="$PWD" \
   >> /tmp/jupyterlab.log 2>&1 < /dev/null 9>&- &
-disown
+  disown
+fi
 
 # Wait until it answers, so setup doesn't finish before JupyterLab does.
-for _ in $(seq 60); do
+for _ in $(seq 240); do
   if up; then echo "JupyterLab is up on port 8888"; exit 0; fi
   sleep 1
 done
