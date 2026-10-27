@@ -5,6 +5,11 @@
   "postStartCommand": "bash .devcontainer/start-jupyter.sh",
   "forwardPorts": [8888],
   "portsAttributes": {
-    "8888": { "label": "JupyterLab" }
+    "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" }
+  },
+  "secrets": {
+    "OPENROUTER_API_KEY": {
+      "description": "Your OpenRouter key (starts with sk-or-). Jupyter AI uses it to reach Claude."
+    }
   }
 }

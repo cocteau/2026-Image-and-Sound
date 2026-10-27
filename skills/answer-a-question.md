@@ -16,8 +16,10 @@ Add these cells to the end of the student's open notebook, in order.
    computes, then the shortest readable pandas code that answers it. End the
    cell with the result as the last line, so it displays.
 4. **Markdown + code: Check.** One sentence saying how this checks the answer
-   differently, then the check code. Follow "What counts as a check" in
-   the course rules.
+   differently, then the check code. A check must be able to disagree with
+   the answer: compute the same number a second, independent way, confirm the
+   parts add up to the whole, or look at the raw rows behind the result.
+   Re-running the same code is not a check.
 5. **Markdown: Claim.** A cell with only `**Claim:** ` for the student to
    complete. Do not fill it in.
 
@@ -27,4 +29,5 @@ Then tell the student, in the chat:
 - that they should read each cell, run it, and compare Compute with Check
 - that if the two disagree, the disagreement is the interesting part
 
-If the question needs a chart, follow the `make-a-chart` skill for that cell.
+If the question needs a chart, make one simple chart per cell, with a title
+that says what it shows and both axes labeled with units.
