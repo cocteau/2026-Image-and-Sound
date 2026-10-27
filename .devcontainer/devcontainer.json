@@ -3,13 +3,25 @@
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "onCreateCommand": "pip install -r requirements.txt",
   "postStartCommand": "bash .devcontainer/start-jupyter.sh",
-  "forwardPorts": [8888],
+  "forwardPorts": [
+    8888
+  ],
   "portsAttributes": {
-    "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" }
+    "8888": {
+      "label": "JupyterLab",
+      "onAutoForward": "openBrowser"
+    },
+    "3001": {
+      "label": "Jupyter AI (internal)",
+      "onAutoForward": "ignore"
+    }
   },
   "secrets": {
     "OPENROUTER_API_KEY": {
       "description": "Your OpenRouter key (starts with sk-or-). Jupyter AI uses it to reach Claude."
     }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "silent"
   }
 }
