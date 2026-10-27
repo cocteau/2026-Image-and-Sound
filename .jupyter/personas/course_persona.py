@@ -4,12 +4,18 @@ It is Jupyter AI's built-in agent (Jupyternaut) with this course's rules
 added: everything in assistant/rules.md, then every file in
 assistant/skills/. Edit those files to change how it behaves; the change
 applies to the next message.
+
+It always uses MODEL, through OpenRouter, paid with the student's own
+OPENROUTER_API_KEY. The chat's model menu is turned off, so nobody can
+switch to a model that bypasses OpenRouter.
 """
 
 from pathlib import Path
 
 from jupyter_ai_jupyternaut.jupyternaut.jupyternaut import JupyternautPersona
-from jupyter_ai_persona_manager import PersonaDefaults
+from jupyter_ai_persona_manager import ModelConfiguration, PersonaDefaults
+
+MODEL = "openrouter/~anthropic/claude-sonnet-latest"
 
 ASSISTANT_DIR = Path(__file__).resolve().parents[2] / "assistant"
 
@@ -30,6 +36,14 @@ class CourseAssistant(JupyternautPersona):
             description="Helps you explore data in your notebook, following the course rules.",
             system_prompt="...",
         )
+
+    # Always the course model, whatever the model menu says.
+    def _resolve_model(self):
+        return MODEL, {}
+
+    # Offer no other models in the menu.
+    def _build_model_configuration(self):
+        return ModelConfiguration(current=None, options=[], settings=[])
 
     def get_system_prompt(self, model_id, message):
         return (

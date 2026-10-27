@@ -6,9 +6,11 @@
 cd "$(dirname "$0")/.." || exit 1
 export PATH="$HOME/.local/bin:$PATH"
 
-# The model the chat uses: the latest Claude Sonnet, through OpenRouter.
-# OpenRouter reads the key from OPENROUTER_API_KEY (the Codespaces secret).
-MODEL="openrouter/~anthropic/claude-sonnet-latest"
+# The chat reaches Claude only through OpenRouter, with the OPENROUTER_API_KEY
+# secret (the model is set in .jupyter/personas/course_persona.py). Hide any
+# other AI keys the student may have as Codespaces secrets, so nothing can go
+# around OpenRouter.
+unset ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL OPENAI_API_KEY
 
 up() { curl -s -o /dev/null http://127.0.0.1:8888/api; }
 running() { pgrep -f "^python3 -m jupyterlab" > /dev/null; }
@@ -46,7 +48,6 @@ if ! running; then
     --ServerApp.token='' --ServerApp.password='' \
     --ServerApp.allow_origin='*' \
     --ServerApp.root_dir="$PWD" \
-    --JupyternautExtension.initial_language_model="$MODEL" \
     --PersonaManager.default_persona_id="jupyter-ai-personas::course_persona::CourseAssistant" \
     >> /tmp/jupyterlab.log 2>&1 < /dev/null 9>&- &
   disown
