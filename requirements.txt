@@ -1,11 +1,4 @@
+jupyterlab
 ipykernel
 pandas
 matplotlib
-# JupyterLab with the Jupyter AI chat and its built-in assistant.
-# Pinned to the versions tested together for this course.
-jupyterlab==4.6.4
-jupyter-ai==3.2.0
-jupyter-ai-jupyternaut==0.1.0
-# Newer litellm needs mcp 2.x, which clashes with Jupyter AI's mcp 1.x and
-# breaks every chat request.
-litellm==1.102.4

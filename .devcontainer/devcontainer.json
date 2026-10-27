@@ -1,46 +1,10 @@
 {
-  // The machine each student gets: Python 3.12 with JupyterLab and
-  // Jupyter AI. Students work in JupyterLab, which opens in its own tab.
-  "name": "EDA course",
+  "name": "2026 Image and Sound",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-
-  // Install the Python packages once, when the codespace is first built.
   "onCreateCommand": "pip install -r requirements.txt",
-
-  // Start JupyterLab every time the codespace starts, and check again
-  // whenever the editor connects (restarting it if it has stopped).
   "postStartCommand": "bash .devcontainer/start-jupyter.sh",
-  "postAttachCommand": "bash .devcontainer/start-jupyter.sh",
-
-  // Open JupyterLab in its own tab; don't announce other ports.
   "forwardPorts": [8888],
   "portsAttributes": {
-    "8888": { "label": "JupyterLab", "onAutoForward": "openBrowser" }
-  },
-  "otherPortsAttributes": { "onAutoForward": "silent" },
-
-  // GitHub asks each student for this key the first time they create a codespace.
-  "secrets": {
-    "OPENROUTER_API_KEY": {
-      "description": "The OpenRouter key your instructor gave you (starts with sk-or-)."
-    }
-  },
-
-  "customizations": {
-    "codespaces": {
-      // The code editor opens first; show the page that points to JupyterLab.
-      "openFiles": ["README.md"]
-    },
-    "vscode": {
-      "settings": {
-        // Show README as a formatted page, not raw text.
-        "workbench.editorAssociations": { "*.md": "vscode.markdown.preview.editor" },
-
-        // Hide distractions, including GitHub Copilot.
-        "workbench.startupEditor": "none",
-        "workbench.tips.enabled": false,
-        "chat.disableAIFeatures": true
-      }
-    }
+    "8888": { "label": "JupyterLab" }
   }
 }
