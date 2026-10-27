@@ -14,8 +14,10 @@
   // Terminals get the OpenRouter settings too.
   "postCreateCommand": "echo 'source ${containerWorkspaceFolder}/.devcontainer/claude-env.sh' >> ~/.bashrc",
 
-  // Start JupyterLab every time the codespace starts.
+  // Start JupyterLab every time the codespace starts, and check again
+  // whenever the editor connects (restarting it if it has stopped).
   "postStartCommand": "bash .devcontainer/start-jupyter.sh",
+  "postAttachCommand": "bash .devcontainer/start-jupyter.sh",
 
   // Open JupyterLab in its own tab; don't announce other ports.
   "forwardPorts": [8888],
