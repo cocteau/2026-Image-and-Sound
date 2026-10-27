@@ -9,9 +9,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 up() { curl -s -o /dev/null http://127.0.0.1:8888/api; }
 
-# If this script is already running, wait for it to finish first.
+# If this script is already running, wait (at most 90 seconds) for it to
+# finish first.
 exec 9> /tmp/jupyterlab.lock
-flock 9
+flock -w 90 9
 
 # Already running? Nothing to do.
 if up; then exit 0; fi
@@ -24,7 +25,7 @@ nohup setsid python3 -m jupyterlab \
   --ServerApp.token='' --ServerApp.password='' \
   --ServerApp.allow_origin='*' \
   --ServerApp.root_dir="$PWD" \
-  >> /tmp/jupyterlab.log 2>&1 < /dev/null &
+  >> /tmp/jupyterlab.log 2>&1 < /dev/null 9>&- &
 disown
 
 # Wait until it answers, so setup doesn't finish before JupyterLab does.
