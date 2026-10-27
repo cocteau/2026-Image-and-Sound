@@ -14,9 +14,10 @@
   // Terminals get the OpenRouter settings too.
   "postCreateCommand": "echo 'source ${containerWorkspaceFolder}/.devcontainer/claude-env.sh' >> ~/.bashrc",
 
-  // Start JupyterLab every time the codespace starts, and check again
-  // whenever the editor connects (restarting it if it has stopped).
-  "postStartCommand": "bash .devcontainer/start-jupyter.sh",
+  // Every time the codespace starts: point Claude at OpenRouter, then start
+  // JupyterLab. Check JupyterLab again whenever the editor connects
+  // (restarting it if it has stopped).
+  "postStartCommand": "bash .devcontainer/claude-settings.sh; bash .devcontainer/start-jupyter.sh",
   "postAttachCommand": "bash .devcontainer/start-jupyter.sh",
 
   // Open JupyterLab in its own tab; don't announce other ports.
@@ -31,16 +32,6 @@
     "OPENROUTER_API_KEY": {
       "description": "The OpenRouter key your instructor gave you (starts with sk-or-)."
     }
-  },
-
-  // The same OpenRouter settings for the Claude panel in VS Code (the backup editor).
-  "remoteEnv": {
-    "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
-    "ANTHROPIC_AUTH_TOKEN": "${containerEnv:OPENROUTER_API_KEY}",
-    "ANTHROPIC_API_KEY": "",
-    "ANTHROPIC_MODEL": "~anthropic/claude-sonnet-latest",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "~anthropic/claude-haiku-latest",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
 
   "customizations": {
@@ -70,7 +61,11 @@
         "notebook.output.scrolling": true,
 
         // Hide GitHub Copilot's chat so Claude is the only assistant on screen.
-        "chat.disableAIFeatures": true
+        "chat.disableAIFeatures": true,
+
+        // Claude uses OpenRouter (set up by claude-settings.sh), so never
+        // show the Anthropic login screen.
+        "claudeCode.disableLoginPrompt": true
       }
     }
   }
