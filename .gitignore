@@ -1,3 +1,5 @@
 .ipynb_checkpoints/
 __pycache__/
 .DS_Store
+# Jupyter AI chat transcripts: personal, not part of the course.
+*.chat
