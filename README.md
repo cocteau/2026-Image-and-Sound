@@ -27,6 +27,5 @@ Never paste your OpenRouter key into a notebook or any file here: your fork is p
 |---|---|
 | `lessons/00-playtime/` | A first taste of Python |
 | `lessons/01-first-look/` | First look: the New York State voter file, with its data and codebook |
-| `lessons/extra-penguins/` | Optional practice with the Palmer penguins |
 | `.claude/skills/` | Skills: instructions the AI follows. Add your own here. |
 | `AGENTS.md` | How the AI should help in this class |
