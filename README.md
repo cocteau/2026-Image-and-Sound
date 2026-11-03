@@ -1,42 +1,31 @@
 # 2026 Image and Sound
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cocteau/2026-Image-and-Sound)
+## First class only
 
-## Getting started
+1. Sign in to GitHub. Click **Fork** at the top of this page, then **Create fork**.
+2. On your fork, click **Code → Codespaces → Create codespace on main**.
+   The first time takes a few minutes.
+3. In the chat pane on the right: click the model picker, then
+   **Manage Language Models → Add Models → OpenRouter**, and paste the
+   OpenRouter key you were sent. Enable the class model, select it, and set
+   the mode to **Agent**.
+4. Bookmark [github.com/codespaces](https://github.com/codespaces).
 
-1. Click the button. GitHub asks for `OPENROUTER_API_KEY`: paste the
-   OpenRouter key you were given (it starts with `sk-or-`). Click
-   **Create codespace**.
-2. When setup finishes, JupyterLab opens in a new tab. If it doesn't, open
-   the **Ports** tab and click the globe icon next to **JupyterLab (8888)**.
-3. Open the `lessons` folder and start with `01-first-look`.
+## Every class after that
 
-**Set your idle timeout once.** A codespace shuts down after 30 minutes
-without activity, and working only in JupyterLab may not count, so your
-kernel can seem to "die". At
-[github.com/settings/codespaces](https://github.com/settings/codespaces),
-set **Default idle timeout** to 240 minutes.
+1. Open your bookmark and click your codespace.
+2. New lesson? On your fork's GitHub page click **Sync fork**, then in the
+   codespace click the sync arrows at the bottom left.
+3. Before you leave: open Source Control (the branching icon), type a short
+   note, and click **Commit**. Your work is now saved to GitHub.
 
-To come back later, go to [github.com/codespaces](https://github.com/codespaces)
-and open your codespace. Don't click the button above again, which makes a
-second one.
+Never paste your OpenRouter key into a notebook or any file here: your fork is public.
 
 ## What's here
 
 | Path | What it is |
 |---|---|
-| `lessons/` | One folder per lesson, each with its notebook and its data |
-| `lessons/01-first-look/` | First lesson: Palmer penguins |
-| `.claude/skills/` | Skills: instructions Claude follows in every lesson |
-
-## AI in JupyterLab
-
-- **Chat:** click the chat icon in the left sidebar, then **New chat**. Pick
-  **Claude** or **Jupyternaut** in the menu at the bottom left of the chat.
-  Both can add and run cells in the open notebook, and ask permission first.
-  Want just a plot, without the Question/Plan/Check steps? Say "just".
-- **`%%ai` in a cell:** start a cell with `%%ai` and write a question below it.
-
-Everything uses the latest Claude Opus through OpenRouter, paid with the
-`OPENROUTER_API_KEY` secret. If the AI answers with an error, check the
-codespace's terminal: the startup messages say whether the key works.
+| `lessons/00-playtime/` | A first taste of Python |
+| `lessons/01-first-look/` | First look: the New York State voter file, with its data and codebook |
+| `.claude/skills/` | Skills: instructions the AI follows. Add your own here. |
+| `AGENTS.md` | How the AI should help in this class |

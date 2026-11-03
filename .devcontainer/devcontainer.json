@@ -1,30 +1,38 @@
 {
   "name": "2026 Image and Sound",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
-  },
-  "onCreateCommand": "pip install -r requirements.txt && npm install -g @anthropic-ai/claude-code @agentclientprotocol/claude-agent-acp",
-  "postStartCommand": "bash .devcontainer/start-jupyter.sh",
-  "forwardPorts": [
-    8888
-  ],
-  "portsAttributes": {
-    "8888": {
-      "label": "JupyterLab",
-      "onAutoForward": "openBrowser"
+  "hostRequirements": { "cpus": 2 },
+  "postCreateCommand": "pip install --user -r requirements.txt",
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["lessons/01-first-look/first-look.ipynb"]
     },
-    "3001": {
-      "label": "Jupyter AI (internal)",
-      "onAutoForward": "ignore"
+    "vscode": {
+      "extensions": ["ms-toolsai.jupyter", "ms-python.python"],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "jupyter.notebookFileRoot": "${fileDirname}",
+        "files.autoSave": "afterDelay",
+
+        "workbench.startupEditor": "none",
+        "workbench.tips.enabled": false,
+        "workbench.activityBar.location": "top",
+        "workbench.secondarySideBar.defaultVisibility": "visible",
+        "editor.minimap.enabled": false,
+        "breadcrumbs.enabled": false,
+        "files.exclude": {
+          ".devcontainer": true,
+          "**/.ipynb_checkpoints": true,
+          "**/__pycache__": true
+        },
+
+        "chat.agent.enabled": true,
+        "editor.inlineSuggest.enabled": false,
+
+        "git.enableSmartCommit": true,
+        "git.postCommitCommand": "sync",
+        "git.confirmSync": false
+      }
     }
-  },
-  "secrets": {
-    "OPENROUTER_API_KEY": {
-      "description": "Your OpenRouter key (starts with sk-or-). Jupyter AI uses it to reach Claude."
-    }
-  },
-  "otherPortsAttributes": {
-    "onAutoForward": "silent"
   }
 }
